@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes} from 'react-router-dom';
 import Layout from "./layout/Layout";
-import {Dashboard, ClaimSubmission, Allvehicle, InsurancePolicy} from "./pages/index";
+import {Dashboard, ClaimSubmission, Allvehicle, InsurancePolicyRegister} from "./pages/index";
 // import {
 //   Header,
 //   Footer,
@@ -20,14 +20,13 @@ import {Dashboard, ClaimSubmission, Allvehicle, InsurancePolicy} from "./pages/i
 function App() {
 
   return (
-    <div className="App">
-      <>
-      <Layout></Layout>
+    <div className="flex gap-2 my-2">
+        <Layout></Layout>
         <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='/claim' element={<ClaimSubmission />} />
             <Route path='/allvehicle' element={<Allvehicle/>} />
-            <Route path='/insurance' element={<InsurancePolicy />} />
+            <Route path='/insurancepolicyregister' element={<InsurancePolicyRegister />} />
            
             {/* admin routes */}
             {/* <Route path='/status/:id' element={<Status />} />
@@ -36,7 +35,6 @@ function App() {
             <Route path='/mynfts' element={<Profile/>}/>
             <Route path='/mynftdetail/:tokenId' element={<NftDetails/>}/> */}
         </Routes>
-      </>
     </div>
   )
 }
