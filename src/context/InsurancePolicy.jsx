@@ -61,13 +61,13 @@ export const InsuranceProvider = ({ children }) => {
     }
   };
 
-   //This function uploads the metadata to IPFS
+  //This function uploads the metadata to IPFS
   async function uploadMetadataToIPFS(fileURL) {
     const {policyname, description} = formParams;
     // console.log("get",IPname);
     // console.log("this",fileURL);
     //Make sure that none of the fields are empty
-    if(!description)
+    if( !policyname || !description)
         return;
 
     const nftJSON = {

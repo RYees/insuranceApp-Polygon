@@ -18,7 +18,7 @@ const MyPolicy = () => {
         >
           <img src={car6} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
             <div>
-              <h1 className='transform uppercase text-center text-xl'>auto liability coverage</h1>
+              <h1 className='card transform uppercase text-center text-xl'>auto liability coverage</h1>
             </div>
         </div>
 
@@ -36,7 +36,7 @@ const MyPolicy = () => {
         >
           <img src={bus} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
             <div>
-              <h1 className='transform uppercase text-center text-xl'>comprehensive coverage</h1>
+              <h1 className='card transform uppercase text-center text-xl'>comprehensive coverage</h1>
             </div>
         </div>
 

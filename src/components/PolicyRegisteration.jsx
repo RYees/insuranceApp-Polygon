@@ -31,15 +31,17 @@ const PolicyRegisteration = () => {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
+    fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
+      console.log(formParams);
       console.log("ready", premiumAmount, fileURL);
-    e.preventDefault();
-    CreatePolicy(premiumAmount, fileURL);
+    //e.preventDefault();
+   // CreatePolicy(premiumAmount, fileURL);
   };
 
   return (
     <>
-       <div className='flex flex-wrap gap-14 mx-40 mb-32 my-20'>
+    <div className='flex flex-wrap gap-14 mx-40 mb-32 my-20'>
             <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
             <h3 className="text-sm text-gray-600 flex justify-between"> Total Policies <FaHourglass className="text-green-900 text-3xl"/></h3> 
             <br></br><span className='text-bold text-green-900 text-4xl'>14</span></div>
@@ -48,7 +50,8 @@ const PolicyRegisteration = () => {
             <br></br><span className='text-bold text-green-900 text-4xl'>3</span></div>
             <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
             <h3 className="text-sm text-gray-600 flex justify-between"> Total Vehicles<FaHourglass className="text-green-900 text-3xl"/></h3> 
-            <br></br><span className='text-bold text-green-900 text-4xl'>5</span></div>      </div>
+            <br></br><span className='text-bold text-green-900 text-4xl'>5</span></div>     
+    </div>
 
     <div className='flex justify-between rounded-xl my-10 bg-green-100 mx-1'>
         <div 
@@ -62,28 +65,42 @@ const PolicyRegisteration = () => {
                     
                     <div className="mb-4">
                     <label className=''>Premium Amount </label><br></br>
-                        <input className='text-gray-700 border py-2 px-2 rounded w-72 mr-5' placeholder="premimum amount" type="text" name="premimum amount" onChange={e => updateFormParams({...formParams, premiumAmount: e.target.value})} value={formParams.premiumAmount}/>
+                        <input className='text-gray-700 border py-2 px-2 rounded w-72 mr-5' 
+                        placeholder="premimum amount" type="text" name="premimum amount" 
+                        ref={premiumAmount}
+                        //onChange={e => updateFormParams({...formParams, premiumAmount: e.target.value})} 
+                        //value={formParams.premiumAmount}
+                        />
                     </div>
 
                     <div className="mb-4">
                     <label className=''>Policy Name </label><br></br>
-                        <input className='text-gray-700 border py-2 px-2 rounded w-72' placeholder="policy name" type="text" name="policy name" onChange={e => updateFormParams({...formParams, policyname: e.target.value})} value={formParams.policyname}/>
+                        <input className='text-gray-700 border py-2 px-2 rounded w-72' 
+                        placeholder="policy name" type="text" name="policy name" 
+                        onChange={e => updateFormParams({...formParams, policyname: e.target.value})} 
+                        value={formParams.policyname}/>
                     </div>
 
                     <div className="mb-4">
                     <label className=''>Description</label><br></br>
-                        <textarea className='text-gray-700 border py-2 px-2 rounded w-96' placeholder="policy description" type="text" name="description" onChange={e => updateFormParams({...formParams, description: e.target.value})} value={formParams.description}/>
+                        <textarea className='text-gray-700 border py-2 px-2 rounded w-96' 
+                        placeholder="policy description" type="text" name="description" 
+                        onChange={e => updateFormParams({...formParams, description: e.target.value})} 
+                        value={formParams.description}/>
                     </div>
 
                     <div>
-                        <label className="block text-purple-500 font-bold mb-2" htmlFor="image">Upload</label>
+                        <label className="block text-black mb-2" htmlFor="image">Upload</label>
                         <input type={"file"} onChange={OnChangeFile}></input>
                         {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
                     </div>
 
                     <div className='py-3'>
-                    <button onClick={handleSubmit} className='mt-5 w-28 py-2 bg-green-900 rounded hover:brightness-110 text-white text-lg cursor-pointer'>Register</button>
-                    {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
+                    <button onClick={handleSubmit} 
+                    className='mt-5 w-28 py-2 bg-green-900 rounded hover:brightness-110 text-white text-lg cursor-pointer'>
+                        Register
+                    </button>
+                    {/* {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null} */}
                 </div> 
                 </div>
             </div>      

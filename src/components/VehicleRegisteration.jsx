@@ -1,65 +1,137 @@
 import React,{useState, useContext} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
-import { InsurancePolicy } from '../context/InsurancePolicy';
-import { Link } from 'react-router-dom';
-//import '../css/Style.css';
+import { VehicleContext } from '../context/Vehicle';
+import { uploadFileToIPFS } from "../pinata";
+import { FaHourglass } from "react-icons/fa";
+import '../css/Style.css';
 
 const VehicleRegisteration = () => {
-  //const { connectWallet, currentAccount} = useContext(InsurancePolicy); 
-
+  const { RegisterVehicle, formParams, updateFormParams } = useContext(VehicleContext); 
   const[show, setShow] = useState(false); 
-  const model = React.useRef();
   const plate = React.useRef();
-  const color = React.useRef();
 
-  const handleSubmit = (e) => {
-    //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;    
-    e.preventDefault();
-    //if (!address || !ownerIPname || !bidvalue || !bidderaddress ) return;
-    //depositBid(currentAccount, model, plate, policyId);
+  const [fileURL, setFileURL] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  //This function uploads the NFT image to IPFS
+  async function OnChangeFile(e) {
+    setIsLoading(true)
+    var file = e.target.files[0];
+    try {
+        //setFileURL(file);
+        const response = await uploadFileToIPFS(file);
+        if(response.success === true) {
+            console.log("Uploaded image to Pinata: ", response.pinataURL)
+            setFileURL(response.pinataURL);
+            setIsLoading(false)
+        }
+    }
+    catch(e) {
+        console.log("Error during file upload", e);
+    }
+  }
+
+  const handleSubmit = () => {
+    fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
+      console.log(formParams);
+      console.log("ready", plate, fileURL);
+    //e.preventDefault();
+   // RegisterVehicle(plate, policyId, fileURL);
   };
 
   return (
-    <>
-      {/* <div>
-         <Link className="arrow mb-6 bg-gradient-to-r from-black via-gray-300" 
-         to="/"
-         //onClick={routeChange}
-         >Back</Link>
-      </div> */}
+    <> 
+    <div className='flex justify-between rounded-xl my-24 bg-green-100 mx-1'>
+        <div 
+            className='text-gray-600 font-serif flex justify-between'>
+            <form className='flex justify-center py-4'>
+            <div className='fields px-10'>
+                <div className='mb-6 text-sm text-black'>
+                    <h1 className='text-2xl'>Insure Your Vehicle</h1>
+                </div>
+                <div className=' flex flex-wrap'>    
+                    
+                    <div className="mb-4">
+                    <label className=''>Vehicle Owner </label><br></br>
+                      <input className='text-gray-700 border py-2 px-2 rounded w-96' 
+                        placeholder="owner name" type="text" name="ownername" 
+                        onChange={e => updateFormParams({...formParams, ownername: e.target.value})} 
+                        value={formParams.ownername}/>
+                    </div>
 
-  <div data-testid='show'
-    className='regcont contain-1 text-gray-600 font-serif flex justify-between'>
-      <form className='bidform px-5 mx-20 mt-28 bg-white flex justify-center'>
-       <div className='fields px-10'>
-        <div className='mb-6 py-3 text-center text-sm text-black'><h1>Register Vehicle</h1></div>
-          <div className=''>    
-            <div className="mb-4">
-            <label className='text-xl'>Model</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={model} type="text" name="model" placeholder="car model"/>
-            </div>
+                    <div className="mb-4 mr-2">
+                    <label className=''>Vehicle Model</label><br></br>
+                        <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-5' 
+                        placeholder="vehicle model" type="text" name="model" 
+                        onChange={e => updateFormParams({...formParams, model: e.target.value})} 
+                        value={formParams.model}
+                        />
+                    </div>
 
-            <div className='mb-4'>
-            <label className='text-xl'>License Plate</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={plate} type="text" name="plate" placeholder='put your license plate'/>
-            </div>
+                    <div className="mb-4">
+                    <label className=''>Vehicle Color</label><br></br>
+                        <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-2' 
+                        placeholder="vehicle color" type="text" name="color" 
+                        onChange={e => updateFormParams({...formParams, color: e.target.value})} 
+                        value={formParams.color}
+                        />
+                    </div>
+                    
+                    <div className="mb-4">
+                    <label className=''>License Plate</label><br></br>
+                        <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-5' 
+                        placeholder="license plate" type="text" name="licenseplate" 
+                        ref={plate}
+                        //onChange={e => updateFormParams({...formParams, premiumAmount: e.target.value})} 
+                        //value={formParams.premiumAmount}
+                        />
+                    </div>
 
-            {/* <div className='mb-4'>
-            <label className='text-xl'>Car Color</label><br></br>
-                <input className='input-box text-gray-700 border py-2 px-2 rounded' ref={color} type="text" name="color" placeholder='car color'/>
-            </div> */}
+                    <div>
+                        <label className="block text-black mb-2" htmlFor="image">Vehicle Photo</label>
+                        <input type={"file"} onChange={OnChangeFile}></input>
+                        {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
+                    </div>
 
-            <div className='py-3'>
-              <button onClick={handleSubmit} className='mt-5 w-28 py-3 bg-black rounded text-white text-lg cursor-pointer'>Register</button>
-              {/* {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null} */}
-          </div> 
+                    <div className='py-3'>
+                    <button onClick={handleSubmit} 
+                    className='mt-5 w-28 py-2 bg-green-900 rounded hover:brightness-110 text-white text-lg cursor-pointer'>
+                        Register
+                    </button>
+                    {/* {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null} */}
+                </div> 
+                </div>
+            </div>      
+            </form>
         </div>
-       </div>      
-      </form>  
-    
-      {/* <div className=''>
-        <FaTimes data-testid='close' size={35} onClick={closeView} className="cursor-pointer bg-red-500 -ml-20 mt-4"/>
-      </div>  */}
+
+        <div className='bg-green-900 text-white rounded-r-xl'>
+            <div className='mx-4 py-4'>
+                <h1 className='text-2xl mb-6 w-96'>Summary</h1>
+                <ul className='text-lg'>
+                    <div className='flex justify-between mb-6'>
+                     <li>Policy Name</li>
+                     <p>coverage</p>
+                    </div>
+
+                    <div className='flex justify-between mb-6'>
+                     <li>Premimum Account</li>
+                     <p>0.001</p>
+                    </div>
+
+                    <div className='flex justify-between mb-6'>
+                    <li>Description</li>
+                     <p>lorem fine so... </p>
+                    </div>
+
+                    <div className='flex justify-between'>
+                     <li>Upload File</li>
+                     <p>cov.png</p>
+                    </div>                                     
+
+                </ul>
+            </div>
+        </div>
     </div>
     </>
   )
