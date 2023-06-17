@@ -38,12 +38,16 @@ function App() {
             <Route path='/mynftdetail/:tokenId' element={<NftDetails/>}/> */}
         </Routes>
           <div className='text-center mr-5'>
-          <button
-              //onClick={connectWallet}
-              className='bg-green-900 p-2 rounded text-white hover:brightness-110'>
-              Connect Wallet
-          </button>
-        </div>
+            <button
+                //onClick={connectWallet}
+                className='bg-green-900 p-2 rounded text-white hover:brightness-110'>
+                Connect Wallet
+            </button>
+
+            <div className="my-10">
+              <p>Vehicle Insurance</p>
+            </div>
+          </div>
     </div>
     </>
   )
