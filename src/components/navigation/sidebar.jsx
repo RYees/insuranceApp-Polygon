@@ -3,13 +3,15 @@ import { GiNewspaper } from "react-icons/gi";
 //import { GrUpdate } from "react-icons/gr";
 import { SiAcclaim } from "react-icons/si";
 import { Link } from 'react-router-dom';
+import { car3, car4 } from '../../assets'
 
 export default function Sidebar() {
 	return (
 	   <div className="py-2 mt-3 px-2 text-green-900 mx-2 inset-10 w-64 border rounded shadow bg-gray-50">
          <Link className="flex" to="/">
-				<AiOutlineCar className="mt-1 mr-1 bg-cyan-900 text-white" size={30}/>
-                <p className="mt-3 text-xl">Insurance</p> 
+				{/* <AiOutlineCar className="mt-1 mr-1 bg-cyan-900 text-white" size={30}/> */}
+            <img src={car3} alt="" className='py-2 h-14 rounded-xl'/>
+                <p className="mt-5 ml-1 text-xl">Insurance</p> 
 		   </Link><br></br>
 
         <nav className=''>
