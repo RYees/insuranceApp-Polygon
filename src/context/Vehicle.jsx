@@ -17,8 +17,7 @@ const createEthereumContract = () => {
 };
 
 export const VehicleProvider = ({ children }) => {
-   const [formParams, updateFormParams] = useState({ ownername:'',
-    model: '', color:'', image:''});
+   const [formParams, updateFormParams] = useState({ ownername:'', model: '', color:'', image:''});
    const [textmessage, setupMessage] = useState('');
    const [isLoading, setIsLoading] = useState(false);
    
@@ -58,9 +57,9 @@ export const VehicleProvider = ({ children }) => {
     try {
       if(ethereum){
         const metadataURL = await uploadMetadataToIPFS(fileURL);
-        const policyContract = createEthereumContract();
+        const vehicleContract = createEthereumContract();
         
-        const transactionHash = await policyContract.createVehicle(plate, policyId, metadataURL);
+        const transactionHash = await vehicleContract.createVehicle(plate, policyId, metadataURL);
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);

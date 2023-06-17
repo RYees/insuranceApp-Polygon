@@ -10,6 +10,9 @@ import car5 from './car5.png'
 import car6 from './car6.png'
 import truck from './truck.png'
 import bus from './bus.png'
+import acc1 from './acc1.jpg'
+import acc2 from './acc2.jpg'
+import acc3 from './acc3.png'
 
 export {
    banner1,
@@ -23,5 +26,8 @@ export {
    car5,
    car6,
    truck,
-   bus
+   bus,
+   acc1,
+   acc2,
+   acc3
 }

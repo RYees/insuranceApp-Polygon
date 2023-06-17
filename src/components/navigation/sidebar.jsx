@@ -19,11 +19,11 @@ export default function Sidebar() {
                 </li> */}
 
                 <li className="flex mb-2 cursor-pointer hover:brightness-110">
-                   <AiOutlineFolderView className="mt-1"/> <Link className='ml-2 hover:text-black text-green-800' to="/viewvehicles">My Vehicles</Link>
+                   <AiOutlineFolderView className="mt-1"/> <Link className='ml-2 hover:text-black text-green-800' to="/myvehicles">My Vehicles</Link>
                 </li>
 
                 <li className="flex mb-2 cursor-pointer hover:brightness-110">
-                   <AiOutlineFolderView className="mt-1"/> <Link className='ml-2 hover:text-black text-green-800' to="/viewvehicles">My Claims</Link>
+                   <AiOutlineFolderView className="mt-1"/> <Link className='ml-2 hover:text-black text-green-800' to="/myclaims">My Claims</Link>
                 </li>
 
                 <li className="flex mb-2 cursor-pointer hover:brightness-110">

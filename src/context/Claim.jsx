@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { contractABI, contractAddress } from "../utils/Claim";
+import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
 import {ethers} from 'ethers';
 export const ClaimContext = React.createContext();
 //const ethers = require("ethers");
@@ -17,165 +18,66 @@ const createEthereumContract = () => {
 };
 
 export const ClaimProvider = ({ children }) => {
-  // const [formParams, updateFormParams] = useState({ IPname: '', description: '', fullname:'', country:'', street:''});
-  // const [textmessage, setupMessage] = useState('');
-  // const [bidformData, setbidformData] = useState({ tokenId: '', address:"", ownerIPname: "", bidvalue: "", bidderaddress: ""});
-  // const [bidData, getbidders] = useState([]);
-  // const [bidsData, getmybids] = useState([]);
-  // const [countbids, bidsCounts] = useState("");
-  // const [isLoading, setIsLoading] = useState(false);
-   
+  const [formParams, updateFormParams] = useState({ cause:'', description:'', date: '', location:''});
+  const [textmessage, setupMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+ 
+ 
   // const handleChanges = (e, name) => {
   //   setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
   // };
 
-  // const checkIfWalletIsConnect = async () => {
-  //   try {
-  //     if (!ethereum) return setupMessage("Please install MetaMask.");
-  //     const accounts = await ethereum.request({ method: "eth_accounts" });
-  //     //window.location.reload();
-  //     console.log(accounts);
-  //     if (accounts.length) {
-  //       setCurrentAccount(accounts[0]);
-  //       //getAllTransactions();
-  //       console.log("accounts found");
-  //     } else {
-  //       console.log("No accounts found");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     }
-  // };
+  //This function uploads the metadata to IPFS
+  async function uploadMetadataToIPFS(dataURL, fileURL) {
+    const { description, date, location } = formParams;
+    //Make sure that none of the fields are empty
+    if(!description || !date || !location)
+        return;
 
-  // const checkIfBidderExists = async () => {
-  //   try {
-  //     if (ethereum) {
-  //       const bidderContract = createEthereumContract();
-  //       console.log('Connect to your sepolia metamask account!');
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
+    const nftJSON = {
+      description, date, location, medicalevidence:dataURL, image:fileURL
+    }
 
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
+    try {
+        //upload the metadata JSON to IPFS
+        const response = await uploadJSONToIPFS(nftJSON);
+        if(response.success === true){
+            console.log("Uploaded JSON to Pinata: ", response)
+            return response.pinataURL;
+        }
+    }
+    catch(e) {
+        setupMessage("Error with loading");
+        console.log("error uploading JSON metadata:", e)
+    }
+  }
 
-  // const depositBid= async (tokenId, address, ownerIPname, amount) => {
-  //   console.log('success')
-  //   try {  
-  //     if (ethereum) {
-  //       //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
-  //       const bidderContract = createEthereumContract();
+  const SubmitClaim = async (index, policyId, dataURL, fileURL) => {
+    console.log("forrk", fileURL);  uploadMetadataToIPFS(dataURL, fileURL)
+    //Upload data to IPFS
+    try {
+      if(ethereum){
+        const metadataURL = await uploadMetadataToIPFS(dataURL, fileURL);
+        const claimContract = createEthereumContract();
         
-  //       const transactionHash = await bidderContract.bidderDeposit(tokenId, address, ownerIPname, { value: ethers.utils.parseEther(amount)});
+        const transactionHash = await claimContract.submitClaim(index, policyId, metadataURL);
 
-  //       setIsLoading(true);
-  //       console.log(`Loading - ${transactionHash.hash}`);
-  //       await transactionHash.wait();
-  //       console.log(`Success - ${transactionHash.hash}`);
-  //       setIsLoading(false);
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
 
-  //        window.location.reload();
-  //       console.log('success')
-  //     } else {
-  //       console.log("No ethereum object now");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
-
-  // const refundBid= async (amount, tokenId) => {
-  //   try {  
-  //     if (ethereum) {
-  //       //const { address, ownerIPname, bidvalue, bidderaddress } = bidformData;
-  //       const bidderContract = createEthereumContract();
-        
-  //       const transactionHash = await bidderContract.refundDeposit(ethers.utils.parseEther(amount), tokenId);
-
-  //       setIsLoading(true);
-  //       console.log(`Loading - ${transactionHash.hash}`);
-  //       await transactionHash.wait();
-  //       console.log(`Success - ${transactionHash.hash}`);
-  //       setIsLoading(false);
-
-  //        window.location.reload();
-  //       console.log('success')
-  //     } else {
-  //       console.log("No ethereum object now");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     throw new Error("No ethereum object");
-  //   }
-  // };
-
-  // const epochTohumanReadble = (timestamp) => {        
-  //   let date = new Intl.DateTimeFormat('en-US', 
-  //   { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: 
-  //   '2-digit', second: '2-digit' }).format(timestamp * 1000)
-  //   return date;  
-  // }
-
-  // const getBidders = async () => {
-  //   try {
-  //     if (ethereum) {
-  //       const bidderContract = createEthereumContract();
-
-  //       const availableBidders = await bidderContract.getMyBidders();        
-  //       const items = await Promise.all(availableBidders.map(async i => {
-  //         let item = {
-  //           tokenID: i.tokenID.toNumber(),
-  //           owneraddress: i.owneraddress,
-  //           ownerIPname: i.ownerIPname,
-  //           bidValue: ethers.utils.formatEther(i.bidValue),
-  //           bidderAddress: i.bidderAddress,
-  //           bidAccepted: i.bidAccepted.toString(),
-  //           timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex']))            
-  //         }
-
-  //         return item;          
-  //     }))
-  //     console.log('successvid', items);
-  //       getbidders(items);
-  //     } else { 
-  //       console.log("Ethereum is not present");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }  
-  // };
-
-  // const getMyBids = async () => {
-  //   try {
-  //     if (ethereum) {
-  //       const bidderContract = createEthereumContract();
-
-  //       const availableBidders = await bidderContract.getMyBids();        
-  //       const items = await Promise.all(availableBidders.map(async i => {
-  //         let item = {
-  //           tokenID: i.tokenID.toNumber(),
-  //           owneraddress: i.owneraddress,
-  //           ownerIPname: i.ownerIPname,
-  //           bidValue: ethers.utils.formatEther(i.bidValue),
-  //           bidderAddress: i.bidderAddress,
-  //           bidAccepted: i.bidAccepted.toString(),
-  //           timestamp: epochTohumanReadble(parseInt(i.timestamp['_hex']))            
-  //         }
-
-  //         return item;          
-  //     }))
-  //     console.log('friendd', items);
-  //       getmybids(items);
-  //     } else { 
-  //       console.log("Ethereum is not present");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }  
-  // };
-
+        window.location.reload();
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+      throw new Error("No ethereum object");
+    }
+  };
 
   useEffect(() => {
     //checkIfBidderExists();
@@ -185,18 +87,11 @@ export const ClaimProvider = ({ children }) => {
   return (
     <ClaimContext.Provider
       value={{    
-        // handleChanges,  
-        // bidformData,
-        // depositBid,
-        // refundBid,
-        // getBidders,
-        // bidData,
-        // countbids,
-        // isLoading,
-        // textmessage, 
-        // setupMessage,
-        // getMyBids,
-        // bidsData
+        SubmitClaim,
+        formParams,
+        updateFormParams,
+        textmessage,
+        isLoading
         }}
       >
       {children}
