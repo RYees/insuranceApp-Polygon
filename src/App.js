@@ -1,7 +1,15 @@
 import React from "react";
 import { Route, Routes} from 'react-router-dom';
 import Layout from "./layout/Layout";
-import {Dashboard, ClaimSubmission, Allvehicle, InsurancePolicyRegister, VehicleRegisteration} from "./pages/index";
+import {
+  Dashboard, 
+  ClaimSubmission, 
+  Allvehicle, 
+  InsurancePolicyRegister, 
+  VehicleRegisteration,
+  AllClaims,
+  Policies
+} from "./pages/index";
 // import {
 //   Header,
 //   Footer,
@@ -26,9 +34,11 @@ function App() {
         <Routes>
             <Route path='/' element={<Dashboard />} />
             <Route path='/claim' element={<ClaimSubmission />} />
+            <Route path='/allclaims' element={<AllClaims/>} />
             <Route path='/allvehicle' element={<Allvehicle/>} />
             <Route path='/vehicleregisteration' element={<VehicleRegisteration/>} />
             <Route path='/insurancepolicyregister' element={<InsurancePolicyRegister />} />
+            <Route path='/allpolicies' element={<Policies/>}/>
            
             {/* admin routes */}
             {/* <Route path='/status/:id' element={<Status />} />
