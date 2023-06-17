@@ -53,9 +53,10 @@ function App() {
             <div className="my-5">
               {currentAccount? <p className="text-green-500">CONNECTED</p>: <p className="text-red-500">NOT CONNECTED</p>}
               {/* <p>Vehicle Insurance</p> */}
-              <div className="mt-10">
+              
+              {/* <div className="mt-10">
                 <img src={car3} alt="" className='mr-5 py-2 h-40 rounded-xl'/>
-              </div>
+              </div> */}
             </div>
           </div>
     </div>
