@@ -1,10 +1,11 @@
 import React from 'react'
-import MyPolicy from '../components/MyPolicy'
+import AllPolicy from '../components/AllPolicy'
 
 const Policies = () => {
   return (
     <div>
-      <MyPolicy/>
+      <h1 className='my-10 text-xl'>Available Policies</h1>
+      <AllPolicy/>
     </div>
   )
 }

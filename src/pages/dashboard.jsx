@@ -12,6 +12,7 @@ import {
   bus,
 } from "../assets/index";
 import '../css/Style.css';
+import AllPolicy from '../components/AllPolicy'
 
 const Dashboard = () => {
   return (
@@ -25,34 +26,8 @@ const Dashboard = () => {
       </div>
       <h1 className='my-10 text-xl'>Available Policies</h1>
       
-      <div className='flex flex-wrap gap-10'>
-        <div 
-          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
-        >
-          <img src={car6} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
-            <div>
-              <h1 className='transform uppercase text-center text-xl'>auto liability coverage</h1>
-            </div>
-        </div>
-
-        <div 
-          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
-        >
-          <img src={truck} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
-            <div>
-              <h1 className='transform uppercase text-center text-xl'>collision coverage</h1>
-            </div>
-        </div>
-
-        <div 
-          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
-        >
-          <img src={car5} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
-            <div>
-              <h1 className='transform uppercase text-center text-xl'>comprehensive coverage</h1>
-            </div>
-        </div>
-
+      <div className=''>
+        <AllPolicy/>
       </div>
 
     </div>

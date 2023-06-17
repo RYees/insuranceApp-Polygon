@@ -10,7 +10,9 @@ import {
   AllClaims,
   Policies,
   MyClaim,
-  MyVehicle
+  MyVehicle,
+  PolicyDetails,
+  ClaimDetails
 } from "./pages/index";
 import { InsuranceContext } from './context/InsurancePolicy';
 
@@ -31,7 +33,8 @@ function App() {
             <Route path='/vehicleregisteration' element={<VehicleRegisteration/>} />
             <Route path='/insurancepolicyregister' element={<InsurancePolicyRegister />} />
             <Route path='/allpolicies' element={<Policies/>}/>
-           
+            <Route path='/policydetail' element={<PolicyDetails/>}/>
+            <Route path='/claimdetail' element={<ClaimDetails/>}/>
             {/* admin routes */}
             {/* <Route path='/status/:id' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />
