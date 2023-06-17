@@ -2,13 +2,11 @@ import { AiFillCar, AiOutlineCar, AiOutlineFolderView } from "react-icons/ai";
 import { GiNewspaper } from "react-icons/gi";
 //import { GrUpdate } from "react-icons/gr";
 import { SiAcclaim } from "react-icons/si";
-
 import { Link } from 'react-router-dom';
-
 
 export default function Sidebar() {
 	return (
-	   <div className="py-2 mt-3 px-2 text-green-900 mx-1 inset-10  shadow-[rgba(23,81,10,0.3)_0px_0px_0px_3px] w-64">
+	   <div className="py-2 mt-3 px-2 text-green-900 mx-1 inset-10 shadow-[rgba(23,81,10,0.3)_0px_0px_0px_3px] w-64">
          <Link className="flex" to="/">
 				<AiOutlineCar className="mt-1 mr-1 bg-cyan-900 text-white" size={30}/>
                 <p className="mt-3 text-xl">Insurance</p> 

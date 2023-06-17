@@ -21,12 +21,12 @@ const VehicleRegisteration = () => {
 
   return (
     <>
-      <div>
+      {/* <div>
          <Link className="arrow mb-6 bg-gradient-to-r from-black via-gray-300" 
          to="/"
          //onClick={routeChange}
          >Back</Link>
-      </div>
+      </div> */}
 
   <div data-testid='show'
     className='regcont contain-1 text-gray-600 font-serif flex justify-between'>

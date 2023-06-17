@@ -11,14 +11,15 @@ import {
   truck,
   bus,
 } from "../assets/index";
+import '../css/Style.css';
 
 const Dashboard = () => {
   return (
     <div className='my-12'>
-      <div>
-        <img src={tire} alt="" className='relative h-[20rem] w-[60rem] py-1 bg-cover bg-green-900 rounded-xl'/>
-        <div class="absolute top-0 my-14 h-[20rem] w-[60rem] flex justify-center items-center rounded-xl backdrop-brightness-50">
-            <span class="text-white text-4xl w-1/2 text-center">Nothing Works Better Than an Insurance</span>
+        <div>
+          <img src={tire} alt="" className='relative h-[20rem] w-[60rem] py-1 bg-cover bg-green-900 rounded-xl'/>
+          <div class="absolute top-0 my-14 h-[20rem] w-[60rem] flex justify-center items-center rounded-xl backdrop-brightness-50">
+              <span class="text-white text-4xl w-1/2 text-center">Nothing Works Better Than an Insurance</span>
         </div>
         <p className='text-center text-4xl text-gray-400 italic'>Lucky, you crashed into us</p>
       </div>
@@ -26,7 +27,7 @@ const Dashboard = () => {
       
       <div className='flex flex-wrap gap-10'>
         <div 
-          className='bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
+          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
         >
           <img src={car6} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
             <div>
@@ -35,7 +36,7 @@ const Dashboard = () => {
         </div>
 
         <div 
-          className='bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
+          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
         >
           <img src={truck} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
             <div>
@@ -44,7 +45,7 @@ const Dashboard = () => {
         </div>
 
         <div 
-          className='bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
+          className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
         >
           <img src={car5} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
             <div>
