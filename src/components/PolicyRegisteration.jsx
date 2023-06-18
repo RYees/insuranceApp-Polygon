@@ -37,6 +37,7 @@ const PolicyRegisteration = () => {
       console.log("ready", premiumAmount, fileURL);
     //e.preventDefault();
    // CreatePolicy(premiumAmount, fileURL);
+   //b;pclcjoamg
   };
 
   return (
