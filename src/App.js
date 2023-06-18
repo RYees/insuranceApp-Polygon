@@ -22,7 +22,7 @@ function App() {
   console.log("marsh", currentAccount);
   return (
     <>
-    <div className="flex gap-2 my-2 justify-between">
+    <div className="flex flex-col gap-2 my-2 2xl:flex-row 2xl:gap-16 md:flex-row ">
         <Layout></Layout>
         <Routes>
             <Route path='/' element={<Dashboard />} />

@@ -3,7 +3,7 @@ import SideLayout from "./sideLayout";
 
 const Layout = ({ children }) => {
   return (
-    <div className="h-screen flex flex-row ">
+    <div className="md:h-screen flex flex-row ">
       <SideLayout />
       <div className="my-10">
           {children}

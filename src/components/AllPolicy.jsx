@@ -13,7 +13,7 @@ const AllPolicy = () => {
     <div>
       {/* <h1 className='my-10 text-xl'>All Policies</h1> */}
       
-      <div className='flex flex-wrap gap-10'>
+      <div className='flex flex-wrap gap-10 ml-24 md:ml-0'>
        <Link to="/policydetail">
           <div 
             className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
