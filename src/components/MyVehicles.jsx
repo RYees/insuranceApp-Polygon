@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 const MyVehicles = () => {
   return (
     <div>
-      <h1 className='my-10 text-xl'>My Vehicles</h1>
+      <h1 className='my-10 text-xl ml-2'>My Vehicles</h1>
       
-      <div className='flex flex-wrap gap-10'>
+      <div className='flex flex-wrap gap-10 ml-24 md:ml-0'>
         <div 
           className='card bg-green-100 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
         >

@@ -8,9 +8,9 @@ const PolicyDetails = () => {
                 <h1 className='transform uppercase text-2xl text-center my-5'>auto liability coverage</h1>
             </div>
 
-            <div className='mx-40'>            
-                <p className='text-justify text-lg leading-10 text-gray-600'>
-                    Auto liability insurance coverage helps cover the costs of the other driver’s property and bodily injuries if you’re found at fault in an accident.
+            <div className='mx-2 md:mx-10 xl:mx-20 2xl:mx-40'>            
+    <p className='text-justify text-lg leading-10 text-gray-600'>
+        Auto liability insurance coverage helps cover the costs of the other driver’s property and bodily injuries if you’re found at fault in an accident.
     
     The auto liability coverage definition may sound simple enough, but here’s a real life example: you’re at a four-way stop a few blocks from your house. You’ve done this route hundreds of times, so you don’t notice that it’s technically the other car’s turn to go – until it’s too late. The next thing you know; you’ve smashed into another driver’s car in the middle of the intersection. Your insurance company will work with the other driver’s insurance company to determine who is at fault (if you live in a no-fault state). If you have liability insurance, your insurance provider will cover costs for the driver’s damaged car, minus your deductible, and up to your covered limit.
     
