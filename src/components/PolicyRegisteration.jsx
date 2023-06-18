@@ -32,13 +32,12 @@ const PolicyRegisteration = () => {
   }
 
   const handleSubmit = () => {
-    fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
-      console.log(formParams);
-      console.log("ready", premiumAmount, fileURL);
+    // fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
+    //   console.log(formParams);
+    //   console.log("ready", premiumAmount, fileURL);
     //e.preventDefault();
    // CreatePolicy(premiumAmount, fileURL);
-   //b;pclcjoamg
-  };
+   };
 
   return (
     <>
@@ -55,7 +54,7 @@ const PolicyRegisteration = () => {
                 <br></br><span className='text-bold text-green-900 text-4xl'>5</span></div>     
         </div>
     
-        <div className='flex justify-between rounded-xl my-10 bg-green-100 mx-1'>
+        <div className='flex flex-col 2xl:flex-row xl:flex-row lg:flex-row rounded-xl my-10 bg-green-100 mx-1'>
             <div 
                 className='text-gray-600 font-serif flex justify-between'>
                 <form className='flex justify-center py-4'>

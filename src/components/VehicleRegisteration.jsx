@@ -46,7 +46,7 @@ const VehicleRegisteration = () => {
           <img src={car1} alt="" className='mx-auto py-2 h-72 my-10 rounded-xl'/>
          </div>
 
-        <div className='flex justify-between rounded-xl bg-green-100 mx-1'>
+        <div className='flex flex-col 2xl:flex-row xl:flex-row lg:flex-row rounded-xl bg-green-100 mx-1'>
             <div 
                 className='text-gray-600 font-serif flex justify-between'>
                 <form className='flex justify-center py-4'>
