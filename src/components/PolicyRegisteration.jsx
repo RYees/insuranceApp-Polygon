@@ -1,4 +1,4 @@
-import React,{useState, useContext} from 'react';
+import React,{useState, useContext, useRef} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { InsuranceContext } from '../context/InsurancePolicy';
 import { uploadFileToIPFS } from "../pinata";
@@ -6,10 +6,11 @@ import { FaHourglass } from "react-icons/fa";
 import '../css/Style.css';
 
 const PolicyRegisteration = () => {
-  const { currentAccount, CreatePolicy, formParams, updateFormParams } = useContext(InsuranceContext); 
-  const[show, setShow] = useState(false); 
-  const premiumAmount = React.useRef();
-
+  const { currentAccount, CreatePolicy, formParams, updateFormParams } = useContext(InsuranceContext);
+  const premiumAmount = useRef();
+  const [amount, setAmount] = useState({
+    premiumAmount : ''
+})
   const [fileURL, setFileURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -31,12 +32,10 @@ const PolicyRegisteration = () => {
     }
   }
 
-  const handleSubmit = () => {
-    // fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
-    //   console.log(formParams);
-    //   console.log("ready", premiumAmount, fileURL);
-    //e.preventDefault();
-   // CreatePolicy(premiumAmount, fileURL);
+  const handleSubmit = (e) => {
+     e.preventDefault();   
+     //console.log("ready", amount.premiumAmount, fileURL);   
+     CreatePolicy(amount.premiumAmount, fileURL);
    };
 
   return (
@@ -67,10 +66,10 @@ const PolicyRegisteration = () => {
                         <div className="mb-4">
                         <label className=''>Premium Amount </label><br></br>
                             <input className='text-gray-700 border py-2 px-2 rounded w-72 mr-5' 
-                            placeholder="premimum amount" type="text" name="premimum amount" 
-                            ref={premiumAmount}
-                            //onChange={e => updateFormParams({...formParams, premiumAmount: e.target.value})} 
-                            //value={formParams.premiumAmount}
+                            placeholder="premimum amount" type="number" step={0.1} name="premimum amount" 
+                            //ref={premiumAmount}
+                            onChange={e => setAmount({...amount, premiumAmount: e.target.value})} 
+                            value={amount.premiumAmount}
                             />
                         </div>
 

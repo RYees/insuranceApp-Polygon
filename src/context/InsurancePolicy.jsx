@@ -19,8 +19,10 @@ const createEthereumContract = () => {
 };
 
 export const InsuranceProvider = ({ children }) => {
-  const [formParams, updateFormParams] = useState({ policyname: '', description: '', image:'' });
+  const [formParams, updateFormParams] = useState({ policyname: '', description: '' });
   const [currentAccount, setCurrentAccount] = useState("");
+  const [policydata, updateData] = useState([]);
+  const [mydata, updatemyData] = useState([]);
   const [textmessage, setupMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
 
@@ -67,7 +69,7 @@ export const InsuranceProvider = ({ children }) => {
     // console.log("get",IPname);
     // console.log("this",fileURL);
     //Make sure that none of the fields are empty
-    if( !policyname || !description)
+    if( !policyname || !description || !fileURL)
         return;
 
     const nftJSON = {
@@ -89,14 +91,14 @@ export const InsuranceProvider = ({ children }) => {
   }
 
   const CreatePolicy = async (premiumAmount, fileURL) => {
-    console.log("forrk", fileURL);  uploadMetadataToIPFS(fileURL)
+    console.log("forrk", fileURL);
     //Upload data to IPFS
     try {
       if(ethereum){
         const metadataURL = await uploadMetadataToIPFS(fileURL);
         const policyContract = createEthereumContract();
-        
-        const transactionHash = await policyContract.createPolicy(premiumAmount, metadataURL);
+        console.log("spoon", metadataURL);
+        const transactionHash = await policyContract.createPolicy(ethers.utils.parseUnits(premiumAmount), metadataURL);
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
@@ -111,9 +113,50 @@ export const InsuranceProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+     //throw new Error("No ethereum object");
     }
   };
+
+
+  async function getAllPolicies() {
+    try {
+      if(ethereum){
+      //Pull the deployed contract instance
+      const policyContract = createEthereumContract();
+      //create an NFT Token
+      let transaction = await policyContract.listInsurancePolicies()
+
+      //Fetch all the details of every NFT from the contract and display
+      const items = await Promise.all(transaction.map(async i => {
+          const tokenURI = await i.dataUrl;
+          let meta = await axios.get(tokenURI);
+          meta = meta.data;
+          // IPname, description, fullname, country, street\  
+          let item = {
+              policyId: i.policyId.toNumber(),
+              owner: i.owner,
+              premiumAmount: ethers.utils.formatEther(i.premiumAmount.toString()),
+              status: i.status,
+              policyname: meta.policyname,
+              description: meta.description,
+              image: meta.image
+          }
+          return item;
+      }))
+      updateData(items);
+      if(items) {setupMessage('');}
+      setIsLoading(false);
+      } else { 
+        console.log("Error with loading");
+        setupMessage("Error with loading"); 
+      }
+    }
+    catch(e) {
+        console.log( "Upload error"+e );
+        setupMessage("Error with loading");
+    }
+  }
+
 
  
   useEffect(() => {
@@ -127,7 +170,9 @@ export const InsuranceProvider = ({ children }) => {
         connectWallet,
         currentAccount,
         updateFormParams,
-        formParams
+        formParams,
+        getAllPolicies,
+        policydata
         }}
       >
       {children}
