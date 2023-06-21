@@ -17,10 +17,11 @@ const createEthereumContract = () => {
 };
 
 export const VehicleProvider = ({ children }) => {
-   const [formParams, updateFormParams] = useState({ ownername:'', model: '', color:'', image:''});
+   const [formParams, updateFormParams] = useState({ ownername:'', model: '', color:''});
    const [textmessage, setupMessage] = useState('');
    const [isLoading, setIsLoading] = useState(false);
-   
+   const [vehicledata, updateData] = useState([]);
+   const [myvehicledata, updatemyData] = useState([]);
    
   // const handleChanges = (e, name) => {
   //   setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -30,7 +31,7 @@ export const VehicleProvider = ({ children }) => {
   async function uploadMetadataToIPFS(fileURL) {
     const {ownername, model, color} = formParams;
     //Make sure that none of the fields are empty
-    if(!ownername || !model || !color)
+    if(!ownername || !model || !color || !fileURL)
         return;
 
     const nftJSON = {
@@ -52,7 +53,7 @@ export const VehicleProvider = ({ children }) => {
   }
 
   const RegisterVehicle = async (plate, policyId, fileURL) => {
-    console.log("forrk", fileURL);  uploadMetadataToIPFS(fileURL)
+   // console.log("forrk", fileURL); 
     //Upload data to IPFS
     try {
       if(ethereum){
@@ -74,9 +75,93 @@ export const VehicleProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+      //throw new Error("No ethereum object");
     }
   };
+
+  async function getAllVehicles() {
+    try {
+      if(ethereum){
+        console.log("vehicle");
+      //Pull the deployed contract instance
+      const vehicleContract = createEthereumContract();
+      //create an NFT Token
+      let transaction = await vehicleContract.getAllVehicles()
+      
+      //Fetch all the details of every NFT from the contract and display
+      const items = await Promise.all(transaction.map(async i => {
+          const tokenURI = await i.vehicledata;
+          let meta = await axios.get(tokenURI);
+          meta = meta.data;
+            
+          let item = {
+              policyId: i.policyId.toNumber(),
+              vehicleOwnerAddress: i.vehicleOwnerAddress,
+              licensePlate: i.licensePlate,
+              vehicledata: i.vehicledata,
+              ownername: meta.ownername,  
+              model: meta.model,            
+              color: meta.color,
+              image: meta.image
+          }
+          return item;
+      }));
+      updateData(items);
+      console.log("vehicle", vehicledata);
+      if(items) {setupMessage('');}
+      setIsLoading(false);
+      } else { 
+        console.log("Error with loading");
+        setupMessage("Error with loading"); 
+      }
+    }
+    catch(e) {
+        console.log( "Upload error"+e );
+        setupMessage("Error with loading");
+    }
+  }
+
+  async function getMyVehicles() {
+    try {
+      if(ethereum){
+        console.log("vehicle");
+      //Pull the deployed contract instance
+      const vehicleContract = createEthereumContract();
+      //create an NFT Token
+      let transaction = await vehicleContract.getMyVehicles()
+      
+      //Fetch all the details of every NFT from the contract and display
+      const items = await Promise.all(transaction.map(async i => {
+          const tokenURI = await i.vehicledata;
+          let meta = await axios.get(tokenURI);
+          meta = meta.data;
+            
+          let item = {
+              policyId: i.policyId.toNumber(),
+              vehicleOwnerAddress: i.vehicleOwnerAddress,
+              licensePlate: i.licensePlate,
+              vehicledata: i.vehicledata,
+              ownername: meta.ownername,  
+              model: meta.model,            
+              color: meta.color,
+              image: meta.image
+          }
+          return item;
+      }));
+      updatemyData(items);
+      console.log("myvehicle", myvehicledata);
+      if(items) {setupMessage('');}
+      setIsLoading(false);
+      } else { 
+        console.log("Error with loading");
+        setupMessage("Error with loading"); 
+      }
+    }
+    catch(e) {
+        console.log( "Upload error"+e );
+        setupMessage("Error with loading");
+    }
+  }
 
 
 
@@ -91,10 +176,17 @@ export const VehicleProvider = ({ children }) => {
           formParams,
           updateFormParams,
           textmessage,
-          isLoading
+          isLoading,
+          getAllVehicles,
+          vehicledata,
+          myvehicledata,
+          getMyVehicles,
+          myvehicledata
         }}
       >
       {children}
     </VehicleContext.Provider>
   );
       }
+
+

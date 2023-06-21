@@ -26,15 +26,15 @@ function App() {
         <Layout></Layout>
         <Routes>
             <Route path='/' element={<Dashboard />} />
-            <Route path='/claimsubmission' element={<ClaimSubmission />} />
+            <Route path='/claimsubmission/:id' element={<ClaimSubmission />} />
             <Route path='/allclaims' element={<AllClaims/>} />
             <Route path='/allvehicle' element={<Allvehicle/>} />
             <Route path='/myclaims' element={<MyClaim/>} />
             <Route path='/myvehicles' element={<MyVehicle/>} />
-            <Route path='/vehicleregisteration' element={<VehicleRegisteration/>} />
+            <Route path='/vehicleregisteration/:id' element={<VehicleRegisteration/>} />
             <Route path='/insurancepolicyregister' element={<InsurancePolicyRegister />} />
             <Route path='/allpolicies' element={<Policies/>}/>
-            <Route path='/policydetail' element={<PolicyDetails/>}/>
+            <Route path='/policydetail/:id' element={<PolicyDetails/>}/>
             <Route path='/claimdetail' element={<ClaimDetails/>}/>
             {/* admin routes */}
             {/* <Route path='/status/:id' element={<Status />} />

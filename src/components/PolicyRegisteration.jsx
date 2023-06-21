@@ -7,10 +7,9 @@ import '../css/Style.css';
 
 const PolicyRegisteration = () => {
   const { currentAccount, CreatePolicy, formParams, updateFormParams } = useContext(InsuranceContext);
-  const premiumAmount = useRef();
   const [amount, setAmount] = useState({
     premiumAmount : ''
-})
+  });
   const [fileURL, setFileURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   

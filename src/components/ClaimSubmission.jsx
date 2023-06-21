@@ -7,16 +7,20 @@ import '../css/Style.css';
 import {
   acc2
 } from "../assets/index";
-
+import { useLocation } from 'react-router-dom';
 const ClaimSubmission = () => {
   const { SubmitClaim, formParams, updateFormParams } = useContext(ClaimContext); 
   const[show, setShow] = useState(false); 
-  const index = React.useRef();
-  const policyId = React.useRef();
 
   const [fileURL, setFileURL] = useState(null);
   const [dataURL, setDataURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isfileLoading, setIsfileLoading] = useState(false);
+
+
+  const { state } = useLocation();
+  const { index } = state || {};
+  const { item } = state || {};
   
   //This function uploads the NFT image to IPFS
   async function OnChangeFile(e) {
@@ -38,7 +42,7 @@ const ClaimSubmission = () => {
 
     //This function uploads the NFT image to IPFS
     async function OnChangeDataFile(e) {
-      setIsLoading(true)
+      setIsfileLoading(true)
       var file = e.target.files[0];
       try {
           //setFileURL(file);
@@ -46,7 +50,7 @@ const ClaimSubmission = () => {
           if(response.success === true) {
               console.log("Uploaded image to Pinata: ", response.pinataURL)
               setDataURL(response.pinataURL);
-              setIsLoading(false)
+              setIsfileLoading(false)
           }
       }
       catch(e) {
@@ -54,12 +58,10 @@ const ClaimSubmission = () => {
       }
     }
 
-  const handleSubmit = () => {
-    fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
-      console.log(formParams);
-      console.log("ready", dataURL, fileURL);
-    //e.preventDefault();
-   // RegisterVehicle(plate, policyId, fileURL);
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      SubmitClaim(index+1, item.policyId, dataURL, fileURL); 
+      console.log("ddatu")
   };
 
   return (
@@ -93,7 +95,7 @@ const ClaimSubmission = () => {
                           <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-2' 
                           placeholder="occurance location" type="text" name="location" 
                           onChange={e => updateFormParams({...formParams, location: e.target.value})} 
-                          value={formParams.color}
+                          value={formParams.location}
                           />
                       </div>
 
@@ -117,8 +119,8 @@ const ClaimSubmission = () => {
 
                       <div>
                           <label className="block text-black mb-2" htmlFor="image">Medical File Upload</label>
-                          <input type={"file"} onChange={OnChangeDataFile} className='mb-7'></input>
-                          {isLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
+                          <input type={"file"} onChange={OnChangeDataFile} className=''></input>
+                          {isfileLoading?<p className='text-red-600 text-sm'>loading...</p>:null}
                       </div>
 
                       <div>

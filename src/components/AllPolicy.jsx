@@ -6,12 +6,12 @@ import {
   bus,
 } from "../assets/index";
 import '../css/Style.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { InsuranceContext } from '../context/InsurancePolicy';
 
 const AllPolicy = () => {
   const { getAllPolicies, policydata } = useContext(InsuranceContext);
-
+  //console.log("apolicy", policydata);
   useEffect(() => {
     getAllPolicies();
   })
@@ -21,8 +21,9 @@ const AllPolicy = () => {
       {/* <h1 className='my-10 text-xl'>All Policies</h1> */}
       
       <div className='flex flex-wrap gap-10 ml-24 md:ml-0'>
-       <Link to="/policydetail">
+       
           {policydata.map((item, index) => (
+            <NavLink to={{ pathname:`/policydetail/${item.policyId}`}}  state={{item,index}} >
             <div 
             key={`${index}`}
               className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
@@ -36,8 +37,9 @@ const AllPolicy = () => {
                   <p>Yearly Premium Amount: <br></br> <strong>{item.premiumAmount} ether</strong> </p>
                 </div>
             </div>
+            </NavLink>  
           ))}            
-        </Link>       
+             
       </div>
 
     </div>

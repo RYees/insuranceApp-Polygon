@@ -4,15 +4,21 @@ import { VehicleContext } from '../context/Vehicle';
 import { uploadFileToIPFS } from "../pinata";
 import { car1 } from "../assets/index";
 import '../css/Style.css';
+import { useLocation } from 'react-router-dom';
 
 const VehicleRegisteration = () => {
   const { RegisterVehicle, formParams, updateFormParams } = useContext(VehicleContext); 
-  const[show, setShow] = useState(false); 
-  const plate = React.useRef();
-
+  const [ infos, setInfo ] = useState({
+    plate : ''
+  });
   const [fileURL, setFileURL] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   
+  const { state } = useLocation();
+  const { index } = state || {};
+  const { item } = state || {};
+  console.log("coco", item);
+
   //This function uploads the NFT image to IPFS
   async function OnChangeFile(e) {
     setIsLoading(true)
@@ -31,12 +37,9 @@ const VehicleRegisteration = () => {
     }
   }
 
-  const handleSubmit = () => {
-    fileURL = 'https://gateway.pinata.cloud/ipfs/QmYeoFrSJomhtrhBYXWvb5vjQoW11CUp9zRjwRvwHnEmrv';
-      console.log(formParams);
-      console.log("ready", plate, fileURL);
-    //e.preventDefault();
-   // RegisterVehicle(plate, policyId, fileURL);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    RegisterVehicle(infos.plate, item.policyId, fileURL);
   };
 
   return (
@@ -86,9 +89,8 @@ const VehicleRegisteration = () => {
                         <label className=''>License Plate</label><br></br>
                             <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-5' 
                             placeholder="license plate" type="text" name="licenseplate" 
-                            ref={plate}
-                            //onChange={e => updateFormParams({...formParams, premiumAmount: e.target.value})} 
-                            //value={formParams.premiumAmount}
+                            onChange={e => setInfo({...infos, plate: e.target.value})} 
+                            value={infos.plate}
                             />
                         </div>
 

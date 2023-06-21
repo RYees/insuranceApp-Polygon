@@ -1,7 +1,12 @@
 import React from 'react'
 import { acc1, acc3 } from '../assets'
+import { useLocation } from 'react-router-dom';
 
 const ClaimDetails = () => {
+    const { state } = useLocation();
+    const { index } = state || {};
+    const { item } = state || {};
+
   return (
     <div className='my-32 border rounded-xl mx-20 py-5 shadow'>
         <div>

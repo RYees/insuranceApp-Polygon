@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { contractABI, contractAddress } from "../utils/Claim";
-import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
+import { uploadJSONToIPFS } from "../pinata";
 import {ethers} from 'ethers';
 export const ClaimContext = React.createContext();
 //const ethers = require("ethers");
@@ -21,6 +21,7 @@ export const ClaimProvider = ({ children }) => {
   const [formParams, updateFormParams] = useState({ cause:'', description:'', date: '', location:''});
   const [textmessage, setupMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [claimdata, updateData] = useState([]);
  
  
   // const handleChanges = (e, name) => {
@@ -29,13 +30,13 @@ export const ClaimProvider = ({ children }) => {
 
   //This function uploads the metadata to IPFS
   async function uploadMetadataToIPFS(dataURL, fileURL) {
-    const { description, date, location } = formParams;
+    const { cause, description, date, location } = formParams;
     //Make sure that none of the fields are empty
-    if(!description || !date || !location)
+    if(!cause || !description || !date || !location)
         return;
 
     const nftJSON = {
-      description, date, location, medicalevidence:dataURL, image:fileURL
+      cause, description, date, location, medicalevidence:dataURL, image:fileURL
     }
 
     try {
@@ -75,10 +76,54 @@ export const ClaimProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+      //throw new Error("No ethereum object");
     }
   };
 
+  
+  async function listAllClaims() {
+    try {
+      if(ethereum){
+      //Pull the deployed contract instance
+      const claimContract = createEthereumContract();
+      //create an NFT Token
+      let transaction = await claimContract.listAllClaims()
+      
+      //Fetch all the details of every NFT from the contract and display
+      const items = await Promise.all(transaction.map(async i => {
+          const tokenURI = await i.description;
+          let meta = await axios.get(tokenURI);
+          meta = meta.data;
+          console.log("ashely", meta);
+            
+          let item = {
+              claimId: i.claimId.toNumber(),
+              policyId: i.policyId.toNumber(),
+              claimant: i.claimant,
+              description: i.description,
+              status: i.status,
+              cause: meta.cause,  
+              location: meta.location,            
+              date: meta.date,
+              medicalevidence: meta.medicalevidence,
+              image: meta.image
+          }
+          return item;
+      }));
+      updateData(items);
+      console.log("claim", claimdata);
+      if(items) {setupMessage('');}
+      setIsLoading(false);
+      } else { 
+        console.log("Error with loading");
+        setupMessage("Error with loading"); 
+      }
+    }
+    catch(e) {
+        console.log( "Upload error"+e );
+        setupMessage("Error with loading");
+    }
+  }
   useEffect(() => {
     //checkIfBidderExists();
     createEthereumContract();
@@ -91,7 +136,9 @@ export const ClaimProvider = ({ children }) => {
         formParams,
         updateFormParams,
         textmessage,
-        isLoading
+        isLoading,
+        listAllClaims,
+        claimdata
         }}
       >
       {children}

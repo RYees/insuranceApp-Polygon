@@ -40,10 +40,38 @@ table {
      radial-gradient(at 100% 0%, rgb(255, 254, 240) 0, transparent 50%);
   }
 
-    /* btnbox */
-    .btn-box{
-      background-image: 
-       radial-gradient(at 0% 0%, rgb(216, 227, 6) 0, transparent 80%), 
-       radial-gradient(at 50% 0%, rgb(216, 227, 6) 0, transparent 50%), 
-       radial-gradient(at 100% 0%, rgb(216, 227, 6) 0, transparent 100%);
-    }
+/* btnbox */
+.btn-box{
+  background-image: 
+    radial-gradient(at 0% 0%, rgb(216, 227, 6) 0, transparent 80%), 
+    radial-gradient(at 50% 0%, rgb(216, 227, 6) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, rgb(216, 227, 6) 0, transparent 100%);
+}
+
+/* pagination css */
+.pagination {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+
+.pagination .page-num {
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+.pagination .page-num:hover {
+  background-color: rgb(72, 88, 62);
+  color: #fff;
+}
+
+.pagination .active {
+  background-color: rgb(197, 193, 193);
+}
+

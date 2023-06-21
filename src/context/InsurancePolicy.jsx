@@ -3,6 +3,7 @@ import axios from "axios";
 import { contractABI, contractAddress } from "../utils/Insurancepolicy";
 import {ethers} from 'ethers';
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
+import { data } from "autoprefixer";
 
 export const InsuranceContext = React.createContext();
 //const ethers = require("ethers");
@@ -144,6 +145,7 @@ export const InsuranceProvider = ({ children }) => {
           return item;
       }))
       updateData(items);
+      //console.log("fetchPolciy", policydata);
       if(items) {setupMessage('');}
       setIsLoading(false);
       } else { 
