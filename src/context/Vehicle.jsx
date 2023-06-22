@@ -180,8 +180,7 @@ export const VehicleProvider = ({ children }) => {
           getAllVehicles,
           vehicledata,
           myvehicledata,
-          getMyVehicles,
-          myvehicledata
+          getMyVehicles
         }}
       >
       {children}

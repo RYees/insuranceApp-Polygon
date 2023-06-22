@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate';
 import '../css/Style.css';
 import { ClaimContext } from '../context/Claim';
 import { ShortenAddress } from './ShortenAddress';
-
+import { Link } from 'react-router-dom';
 const AllClaimsTable = () => {
   const { listAllClaims, claimdata } = useContext(ClaimContext);
   const [currentItems, setCurrentItems] = useState([]);
@@ -39,6 +39,8 @@ const AllClaimsTable = () => {
             <th className='text-white'> Reason</th>
             <th className='text-white'> Status</th>
             <th className='text-white'> Date </th>  
+            <th className='text-white'> Medical Report </th>  
+            <th className='text-white'> Crash Image </th>
             <th className='text-white'> Description </th>  
           </tr>
         </thead>
@@ -53,13 +55,14 @@ const AllClaimsTable = () => {
               <td className='text-center'>{item.cause}</td>
               <td>{item.status}</td>
               <td>{item.date}</td>
+              <td><img src={item.medicalevidence} className='h-10 w-10'/></td>
+              <td><img src={item.image} className='h-10 w-10'/></td>
               <td className='text-center'>
-                <button 
-                className='transform underline' 
-               // onClick={(event) => acceptBidding()}
-                >
-                details
-                </button>
+                <Link to={{ pathname:`/claimdetail/${index}`}}  state={{item,index}}>
+                  <button className='transform underline'>
+                    details
+                  </button>
+                </Link>
               </td>
             </tr>
          ))

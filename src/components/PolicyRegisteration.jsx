@@ -1,12 +1,17 @@
 import React,{useState, useContext, useRef} from 'react';
 import { FaPlus, FaTimes } from "react-icons/fa";
 import { InsuranceContext } from '../context/InsurancePolicy';
+import { ClaimContext } from '../context/Claim';
+import { VehicleContext } from '../context/Vehicle';
 import { uploadFileToIPFS } from "../pinata";
 import { FaHourglass } from "react-icons/fa";
 import '../css/Style.css';
 
 const PolicyRegisteration = () => {
-  const { currentAccount, CreatePolicy, formParams, updateFormParams } = useContext(InsuranceContext);
+  const { policydata, CreatePolicy, formParams, updateFormParams } = useContext(InsuranceContext);
+  const { vehicledata } = useContext(VehicleContext);
+  const { claimdata } = useContext(ClaimContext);
+
   const [amount, setAmount] = useState({
     premiumAmount : ''
   });
@@ -43,13 +48,13 @@ const PolicyRegisteration = () => {
         <div className='flex flex-wrap gap-10 mx-40 mb-32 my-20'>
                 <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
                 <h3 className="text-sm text-gray-600 flex justify-between"> Total Policies <FaHourglass className="text-green-900 text-3xl"/></h3> 
-                <br></br><span className='text-bold text-green-900 text-4xl'>14</span></div>
+                <br></br><span className='text-bold text-green-900 text-4xl'>{policydata.length}</span></div>
                 <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
                 <h3 className="text-sm text-gray-600 flex justify-between"> Total Claims <FaHourglass className="text-green-900 text-3xl"/></h3>
-                <br></br><span className='text-bold text-green-900 text-4xl'>3</span></div>
+                <br></br><span className='text-bold text-green-900 text-4xl'>{claimdata.length}</span></div>
                 <div className='box hover:brightness-105 transition duration-150 ease-out hover:ease-in border border-10 border-gray-300 rounded-lg bg-white w-56 p-2'>
                 <h3 className="text-sm text-gray-600 flex justify-between"> Total Vehicles<FaHourglass className="text-green-900 text-3xl"/></h3> 
-                <br></br><span className='text-bold text-green-900 text-4xl'>5</span></div>     
+                <br></br><span className='text-bold text-green-900 text-4xl'>{vehicledata.length}</span></div>     
         </div>
     
         <div className='flex flex-col 2xl:flex-row xl:flex-row lg:flex-row rounded-xl my-10 bg-green-100 mx-1'>

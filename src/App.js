@@ -35,7 +35,7 @@ function App() {
             <Route path='/insurancepolicyregister' element={<InsurancePolicyRegister />} />
             <Route path='/allpolicies' element={<Policies/>}/>
             <Route path='/policydetail/:id' element={<PolicyDetails/>}/>
-            <Route path='/claimdetail' element={<ClaimDetails/>}/>
+            <Route path='/claimdetail/:id' element={<ClaimDetails/>}/>
             {/* admin routes */}
             {/* <Route path='/status/:id' element={<Status />} />
             <Route path='/bidders/:id/:address' element={<Bidder />} />

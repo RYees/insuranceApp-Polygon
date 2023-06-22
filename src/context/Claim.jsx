@@ -22,7 +22,7 @@ export const ClaimProvider = ({ children }) => {
   const [textmessage, setupMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [claimdata, updateData] = useState([]);
- 
+  const [claimMydata, updateMyData] = useState([]);
  
   // const handleChanges = (e, name) => {
   //   setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
@@ -79,7 +79,6 @@ export const ClaimProvider = ({ children }) => {
       //throw new Error("No ethereum object");
     }
   };
-
   
   async function listAllClaims() {
     try {
@@ -94,14 +93,13 @@ export const ClaimProvider = ({ children }) => {
           const tokenURI = await i.description;
           let meta = await axios.get(tokenURI);
           meta = meta.data;
-          console.log("ashely", meta);
             
           let item = {
               claimId: i.claimId.toNumber(),
               policyId: i.policyId.toNumber(),
-              claimant: i.claimant,
-              description: i.description,
+              claimant: i.claimant,             
               status: i.status,
+              description: meta.description,
               cause: meta.cause,  
               location: meta.location,            
               date: meta.date,
@@ -111,7 +109,7 @@ export const ClaimProvider = ({ children }) => {
           return item;
       }));
       updateData(items);
-      console.log("claim", claimdata);
+     // console.log("claim", claimdata);
       if(items) {setupMessage('');}
       setIsLoading(false);
       } else { 
@@ -124,6 +122,51 @@ export const ClaimProvider = ({ children }) => {
         setupMessage("Error with loading");
     }
   }
+
+
+  async function getMyClaim() {
+    try {
+      if(ethereum){
+      //Pull the deployed contract instance
+      const claimContract = createEthereumContract();
+      //create an NFT Token
+      let transaction = await claimContract.getMyClaim()
+      
+      //Fetch all the details of every NFT from the contract and display
+      const items = await Promise.all(transaction.map(async i => {
+          const tokenURI = await i.description;
+          let meta = await axios.get(tokenURI);
+          meta = meta.data;
+                 
+          let item = {
+              claimId: i.claimId.toNumber(),
+              policyId: i.policyId.toNumber(),
+              claimant: i.claimant,             
+              status: i.status,
+              description: meta.description,
+              cause: meta.cause,  
+              location: meta.location,            
+              date: meta.date,
+              medicalevidence: meta.medicalevidence,
+              image: meta.image
+          }
+          return item;
+      }));
+      updateMyData(items);
+      //console.log("claim", claimdata);
+      if(items) {setupMessage('');}
+      setIsLoading(false);
+      } else { 
+        console.log("Error with loading");
+        setupMessage("Error with loading"); 
+      }
+    }
+    catch(e) {
+        console.log( "Upload error"+e );
+        setupMessage("Error with loading");
+    }
+  }
+
   useEffect(() => {
     //checkIfBidderExists();
     createEthereumContract();
@@ -138,7 +181,9 @@ export const ClaimProvider = ({ children }) => {
         textmessage,
         isLoading,
         listAllClaims,
-        claimdata
+        claimdata,
+        getMyClaim,
+        claimMydata
         }}
       >
       {children}
