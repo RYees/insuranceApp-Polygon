@@ -20,6 +20,7 @@ const createEthereumContract = () => {
 export const ClaimProvider = ({ children }) => {
   const [formParams, updateFormParams] = useState({ cause:'', description:'', date: '', location:''});
   const [textmessage, setupMessage] = useState('');
+  const [message, updateMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [claimdata, updateData] = useState([]);
   const [claimMydata, updateMyData] = useState([]);
@@ -167,6 +168,56 @@ export const ClaimProvider = ({ children }) => {
     }
   }
 
+  const updateClaimStatus = async (id,val) => {
+    // console.log('success',id,val)
+    try {  
+      if (ethereum) {
+        //const { id, val } = statusformData;
+        const claimContract = createEthereumContract();        
+        const transactionHash = await claimContract.updateClaimStatus(id,val);
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+        //  window.location.reload();
+         updateMessage("Claim status changed successfully!");
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+     // throw new Error("No ethereum object");
+    }
+  };
+
+  const payAcceptedClaim = async (index, amount, _claimerAddress) => {
+    console.log('success',index, ethers.utils.parseUnits(amount), _claimerAddress)
+    try {  
+      if (ethereum) {
+        //const { id, val } = statusformData;
+        const claimContract = createEthereumContract();        
+        const transactionHash = await claimContract.claimPaid(index, _claimerAddress, { value: ethers.utils.parseUnits(amount) }) ;
+        setIsLoading(true);
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+        setIsLoading(false);
+
+        //  window.location.reload();
+        updateMessage("Money is transferred!");
+        console.log('success')
+      } else {
+        console.log("No ethereum object now");
+      }
+    } catch (error) {
+      console.log(error);
+     // throw new Error("No ethereum object");
+    }
+  };
+
   useEffect(() => {
     //checkIfBidderExists();
     createEthereumContract();
@@ -183,7 +234,10 @@ export const ClaimProvider = ({ children }) => {
         listAllClaims,
         claimdata,
         getMyClaim,
-        claimMydata
+        claimMydata,
+        updateClaimStatus,
+        payAcceptedClaim,
+        message
         }}
       >
       {children}

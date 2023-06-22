@@ -117,22 +117,22 @@ const PolicyRegisteration = () => {
                     <ul className='text-lg'>
                         <div className='flex justify-between mb-6'>
                         <li>Policy Name</li>
-                        <p>coverage</p>
+                        <p>{formParams.policyname}</p>
                         </div>
 
                         <div className='flex justify-between mb-6'>
                         <li>Premimum Account</li>
-                        <p>0.001</p>
+                        <p>{formParams.premiumAmount}</p>
                         </div>
 
                         <div className='flex justify-between mb-6'>
                         <li>Description</li>
-                        <p>lorem fine so... </p>
+                        <p>{formParams.description}</p>
                         </div>
 
                         <div className='flex justify-between'>
                         <li>Upload File</li>
-                        <p>cov.png</p>
+                        <p>{formParams.image}</p>
                         </div>                                     
 
                     </ul>

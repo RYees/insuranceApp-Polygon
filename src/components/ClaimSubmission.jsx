@@ -170,22 +170,27 @@ const ClaimSubmission = () => {
               <div className='mx-4 py-4'>
                   <h1 className='text-2xl mb-6 w-96'>Summary</h1>
                   <ul className='text-lg'>
-                      <div className='flex justify-between mb-6'>
-                      <li>Claim Description</li>
-                      <p>coverage</p>
+                     <div className='flex justify-between mb-6'>
+                      <li>Claim Cause</li>
+                      <p>{formParams.cause}</p>
                       </div>
+
+                      {/* <div className='flex justify-between mb-6'>
+                      <li>Claim Description</li>
+                      <p>{formParams.description}</p>
+                      </div> */}
 
                       <div className='flex justify-between mb-6'>
                       <li>Occurance Location</li>
-                      <p>jemo, A.A</p>
+                      <p>{formParams.location}</p>
                       </div>  
 
                       <div className='flex justify-between mb-6'>
                       <li>Date</li>
-                      <p>10/10/2020</p>
+                      <p>{formParams.date}</p>
                       </div>  
 
-                      <div className='flex justify-between mb-6'>
+                      {/* <div className='flex justify-between mb-6'>
                       <li>Medical File</li>
                       <p>cov.png</p>
                       </div>
@@ -193,7 +198,7 @@ const ClaimSubmission = () => {
                       <div className='flex justify-between mb-6'>
                       <li>Accident Photo</li>
                       <p>acc.png</p>
-                      </div>                                  
+                      </div>    */}
                   </ul>
               </div>
           </div>

@@ -118,27 +118,27 @@ const VehicleRegisteration = () => {
                     <ul className='text-lg'>
                         <div className='flex justify-between mb-6'>
                         <li>Vehicle Owner</li>
-                        <p>John Doe</p>
+                        <p>{formParams.ownername}</p>
                         </div>
 
                         <div className='flex justify-between mb-6'>
                         <li>Vehicle Model</li>
-                        <p>BMW</p>
+                        <p>{formParams.model}</p>
                         </div>
 
                         <div className='flex justify-between mb-6'>
                         <li>Vehicle Color</li>
-                        <p>white</p>
+                        <p>{formParams.color}</p>
                         </div>
 
                         <div className='flex justify-between mb-6'>
                         <li>License Plate</li>
-                        <p>101123</p>
+                        <p>{infos.plate}</p>
                         </div>    
 
                         <div className='flex justify-between mb-6'>
                         <li>Vehicle Photo</li>
-                        <p>car.png</p>
+                        <p>{formParams.image}</p>
                         </div>                                   
 
                     </ul>

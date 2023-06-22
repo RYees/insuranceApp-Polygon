@@ -23,13 +23,14 @@ const MyClaims = () => {
       return <h1>Rejected</h1>
     }
   }
+
   return (
     <div>
-      <h1 className='my-10 text-xl'>My Claims</h1>
+      <h1 className='my-10 text-xl mx-10'>My Claims</h1>
       
-      <div className='flex flex-wrap gap-10'>
+      <div className='flex flex-wrap gap-10 mx-10'>
         {claimMydata.map((item,index) => (
-          <Link to={{ pathname:`/claimdetail/${index}`}}  state={{item,index}}>
+          <Link to={{ pathname:`/claimdetail/${item.claimId}`}}  state={{item,index}}>
             <div 
               className='card bg-green-100 h-72 w-72 my-5 cursor-pointer transition duration-700 ease-in-out font-semibold hover:scale-110 hover:brightness-110'
             >

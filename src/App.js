@@ -16,6 +16,8 @@ import {
   ClaimDetails
 } from "./pages/index";
 import { InsuranceContext } from './context/InsurancePolicy';
+import ClaimStatus from "./components/ClaimStatus";
+import PayAcceptedClaim from "./components/PayAcceptedClaim";
 
 function App() {
   const { connectWallet, currentAccount } = useContext(InsuranceContext);
@@ -36,12 +38,8 @@ function App() {
             <Route path='/allpolicies' element={<Policies/>}/>
             <Route path='/policydetail/:id' element={<PolicyDetails/>}/>
             <Route path='/claimdetail/:id' element={<ClaimDetails/>}/>
-            {/* admin routes */}
-            {/* <Route path='/status/:id' element={<Status />} />
-            <Route path='/bidders/:id/:address' element={<Bidder />} />
-            <Route path='/mint/:id/:address' element={<Mint />} />
-            <Route path='/mynfts' element={<Profile/>}/>
-            <Route path='/mynftdetail/:tokenId' element={<NftDetails/>}/> */}
+            <Route path='/claimstatus/:id' element={<ClaimStatus/>}/>
+            <Route path='/payamount/:id' element={<PayAcceptedClaim/>}/>
         </Routes>
           <div className='text-center mr-1'>
             <button
@@ -52,11 +50,6 @@ function App() {
 
             <div className="my-5">
               {currentAccount? <p className="text-green-500">CONNECTED</p>: <p className="text-red-500">NOT CONNECTED</p>}
-              {/* <p>Vehicle Insurance</p> */}
-              
-              {/* <div className="mt-10">
-                <img src={car3} alt="" className='mr-5 py-2 h-40 rounded-xl'/>
-              </div> */}
             </div>
           </div>
     </div>

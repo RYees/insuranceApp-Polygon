@@ -26,6 +26,16 @@ const AllClaimsTable = () => {
     const newOffset = (event.selected * itemsPerPage) % claimdata.length;
     setItemOffset(newOffset);
   };
+
+  function status(status) {
+    if(status == 0){
+      return <h1>Submitted</h1>
+    } else if(status == 1) {
+      return <h1>Accepted</h1>
+    } else if(status == 2) {
+      return <h1>Rejected</h1>
+    }
+  }
   
   return (
     <div className='mx-20 mb-32'>
@@ -53,12 +63,12 @@ const AllClaimsTable = () => {
               <td className='text-black'>{item.policyId}</td>             
               <td>{ShortenAddress(item.claimant)}</td>            
               <td className='text-center'>{item.cause}</td>
-              <td>{item.status}</td>
+              <td>{status(item.status)}</td>
               <td>{item.date}</td>
               <td><img src={item.medicalevidence} className='h-10 w-10'/></td>
               <td><img src={item.image} className='h-10 w-10'/></td>
               <td className='text-center'>
-                <Link to={{ pathname:`/claimdetail/${index}`}}  state={{item,index}}>
+                <Link to={{ pathname:`/claimdetail/${item.claimId}`}}  state={{item,index}}>
                   <button className='transform underline'>
                     details
                   </button>

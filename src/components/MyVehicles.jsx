@@ -17,7 +17,7 @@ const MyVehicles = () => {
 
   return (
     <div>
-      <h1 className='my-10 text-xl ml-2'>My Vehicles</h1>      
+      <h1 className='my-10 text-xl ml-2'>My  Vehicles</h1>      
       <div className='flex flex-wrap gap-10 ml-24 md:ml-0'>   
       
       {myvehicledata.map((item, index) => (     
