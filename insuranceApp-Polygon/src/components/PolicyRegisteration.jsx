@@ -92,6 +92,15 @@ const PolicyRegisteration = () => {
                             onChange={e => updateFormParams({...formParams, description: e.target.value})} 
                             value={formParams.description}/>
                         </div>
+                        
+                        {/* <div className="mb-4">
+                        <label className=''>Date</label><br></br>
+                          <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-5 mb-3' 
+                          placeholder="occurance date" type="date" name="date" 
+                          onChange={e => updateFormParams({...formParams, date: e.target.value})} 
+                          value={formParams.date}
+                          />
+                        </div> */}
 
                         <div>
                             <label className="block text-black mb-2" htmlFor="image">Upload</label>
@@ -122,17 +131,17 @@ const PolicyRegisteration = () => {
 
                         <div className='flex justify-between mb-6'>
                         <li>Premimum Account</li>
-                        <p>{formParams.premiumAmount}</p>
+                        <p>{amount.premiumAmount}</p>
                         </div>
 
-                        <div className='flex justify-between mb-6'>
-                        <li>Description</li>
-                        <p>{formParams.description}</p>
-                        </div>
+                        {/* <div className='flex justify-between mb-6'>
+                        <li>Date</li>
+                        <p>{formParams.date}</p>
+                        </div> */}
 
                         <div className='flex justify-between'>
                         <li>Upload File</li>
-                        <p>{formParams.image}</p>
+                        <p><img src={fileURL} className='h-20 w-20'/></p>
                         </div>                                     
 
                     </ul>

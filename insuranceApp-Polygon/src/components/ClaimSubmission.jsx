@@ -40,7 +40,7 @@ const ClaimSubmission = () => {
     }
   }
 
-    //This function uploads the NFT image to IPFS
+    //This function uploads
     async function OnChangeDataFile(e) {
       setIsfileLoading(true)
       var file = e.target.files[0];
@@ -61,7 +61,6 @@ const ClaimSubmission = () => {
   const handleSubmit = (e) => {
       e.preventDefault();
       SubmitClaim(index+1, item.policyId, dataURL, fileURL); 
-      console.log("ddatu")
   };
 
   return (
@@ -190,15 +189,15 @@ const ClaimSubmission = () => {
                       <p>{formParams.date}</p>
                       </div>  
 
-                      {/* <div className='flex justify-between mb-6'>
+                      <div className='flex justify-between mb-6'>
                       <li>Medical File</li>
-                      <p>cov.png</p>
+                      <p><img src={dataURL} className='h-20 w-20'/></p>
                       </div>
 
                       <div className='flex justify-between mb-6'>
                       <li>Accident Photo</li>
-                      <p>acc.png</p>
-                      </div>    */}
+                      <p><img src={fileURL} className='h-20 w-20'/></p>
+                      </div>   
                   </ul>
               </div>
           </div>

@@ -25,10 +25,6 @@ export const ClaimProvider = ({ children }) => {
   const [claimdata, updateData] = useState([]);
   const [claimMydata, updateMyData] = useState([]);
  
-  // const handleChanges = (e, name) => {
-  //   setbidformData((prevState) => ({ ...prevState, [name]: e.target.value }));
-  // };
-
   //This function uploads the metadata to IPFS
   async function uploadMetadataToIPFS(dataURL, fileURL) {
     const { cause, description, date, location } = formParams;
@@ -194,7 +190,7 @@ export const ClaimProvider = ({ children }) => {
   };
 
   const payAcceptedClaim = async (index, amount, _claimerAddress) => {
-    console.log('success',index, ethers.utils.parseUnits(amount), _claimerAddress)
+    //console.log('success',index, ethers.utils.parseUnits(amount), _claimerAddress)
     try {  
       if (ethereum) {
         //const { id, val } = statusformData;

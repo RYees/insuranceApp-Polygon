@@ -17,8 +17,9 @@ const createEthereumContract = () => {
 };
 
 export const VehicleProvider = ({ children }) => {
-   const [formParams, updateFormParams] = useState({ ownername:'', model: '', color:''});
+   const [formParams, updateFormParams] = useState({ ownername:'', model: '', color:'', date:''});
    const [textmessage, setupMessage] = useState('');
+   const [paymentid, setPayment] = useState([]);
    const [isLoading, setIsLoading] = useState(false);
    const [vehicledata, updateData] = useState([]);
    const [myvehicledata, updatemyData] = useState([]);
@@ -29,13 +30,13 @@ export const VehicleProvider = ({ children }) => {
 
   //This function uploads the metadata to IPFS
   async function uploadMetadataToIPFS(fileURL) {
-    const {ownername, model, color} = formParams;
+    const {ownername, model, color, date} = formParams;
     //Make sure that none of the fields are empty
-    if(!ownername || !model || !color || !fileURL)
+    if(!ownername || !model || !color ||!date || !fileURL)
         return;
 
     const nftJSON = {
-      ownername, model, color, image:fileURL
+      ownername, model, color, date, image:fileURL
     }
 
     try {
@@ -54,7 +55,7 @@ export const VehicleProvider = ({ children }) => {
 
   const RegisterVehicle = async (plate, policyId, fileURL) => {
    // console.log("forrk", fileURL); 
-    //Upload data to IPFS
+    //Upload data to IPFS findyourPaymentId
     try {
       if(ethereum){
         const metadataURL = await uploadMetadataToIPFS(fileURL);
@@ -79,6 +80,32 @@ export const VehicleProvider = ({ children }) => {
     }
   };
 
+  const findyourPaymentId = async () => {
+     try {
+       if(ethereum){
+        console.log('successalright');
+         const vehicleContract = createEthereumContract();         
+         const transactionHash = await vehicleContract.findyourPaymentId();
+ console.log('success', transactionHash);
+         setIsLoading(true);
+         console.log(`Loading - ${transactionHash.hash}`);
+         await transactionHash.wait();
+         console.log(`Success - ${transactionHash.hash}`);
+         setIsLoading(false);
+        
+         setPayment(transactionHash);
+         window.location.reload();
+         
+       } else {
+         console.log("No ethereum object now");
+       }
+     } catch (error) {
+       console.log(error);
+       //throw new Error("No ethereum object");
+     }
+   };
+ 
+
   async function getAllVehicles() {
     try {
       if(ethereum){
@@ -102,7 +129,8 @@ export const VehicleProvider = ({ children }) => {
               ownername: meta.ownername,  
               model: meta.model,            
               color: meta.color,
-              image: meta.image
+              image: meta.image,
+              date: meta.date
           }
           return item;
       }));
@@ -144,7 +172,8 @@ export const VehicleProvider = ({ children }) => {
               ownername: meta.ownername,  
               model: meta.model,            
               color: meta.color,
-              image: meta.image
+              image: meta.image,
+              date: meta.date
           }
           return item;
       }));
@@ -180,7 +209,9 @@ export const VehicleProvider = ({ children }) => {
           getAllVehicles,
           vehicledata,
           myvehicledata,
-          getMyVehicles
+          getMyVehicles,
+          findyourPaymentId,
+          paymentid
         }}
       >
       {children}

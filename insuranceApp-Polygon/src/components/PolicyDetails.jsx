@@ -1,12 +1,16 @@
-import React from 'react'
+import React, {useEffect, useContext} from 'react'
 import { car2 } from '../assets'
-import { useNavigate, NavLink, useLocation } from 'react-router-dom';
-
+import { NavLink, useLocation } from 'react-router-dom';
+import { InsuranceContext } from '../context/InsurancePolicy';
 const PolicyDetails = () => {
+    const { monthlyAmount, monthlyamount,checkOwnership } = useContext(InsuranceContext);
     const { state } = useLocation();
     const { index } = state || {};
     const { item } = state || {};
-    //console.log("coco", item);
+    //console.log("coco", item); 
+    useEffect(() => {
+       
+    });
 
     return (
         <>
@@ -22,7 +26,10 @@ const PolicyDetails = () => {
             </div>
 
             <div>
-                <h1 className='transform uppercase text-2xl text-center my-5'>{item.policyname}</h1>
+                <h1 className='transform uppercase text-2xl text-center my-5' 
+                onClick={checkOwnership}
+                >{item.policyname}</h1>
+                <h1 className='transform lowercase text-xl font-bold'>{monthlyamount}</h1>
             </div>
             
             <div className='mx-2 md:mx-10 xl:mx-20 2xl:mx-40'>            

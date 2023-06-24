@@ -94,6 +94,15 @@ const VehicleRegisteration = () => {
                             />
                         </div>
 
+                        <div className="mb-4">
+                        <label className=''>Date</label><br></br>
+                          <input className='text-gray-700 border py-2 px-2 rounded w-96 mr-5 mb-3' 
+                          placeholder="occurance date" type="date" name="date" 
+                          onChange={e => updateFormParams({...formParams, date: e.target.value})} 
+                          value={formParams.date}
+                          />
+                      </div>
+
                         <div>
                             <label className="block text-black mb-2" htmlFor="image">Vehicle Photo</label>
                             <input type={"file"} onChange={OnChangeFile}></input>
@@ -138,7 +147,7 @@ const VehicleRegisteration = () => {
 
                         <div className='flex justify-between mb-6'>
                         <li>Vehicle Photo</li>
-                        <p>{formParams.image}</p>
+                        <p><img src={fileURL} className='h-20 w-20'/></p>
                         </div>                                   
 
                     </ul>

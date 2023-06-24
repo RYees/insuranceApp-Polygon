@@ -1,17 +1,11 @@
 import React, {useContext, useEffect} from 'react'
-import {
-  car5,
-  car6,
-  truck,
-  bus,
-} from "../assets/index";
 import '../css/Style.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { InsuranceContext } from '../context/InsurancePolicy';
 
 const AllPolicy = () => {
   const { getAllPolicies, policydata } = useContext(InsuranceContext);
-  //console.log("apolicy", policydata);
+  // console.log("apolicy", policydata);
   useEffect(() => {
     getAllPolicies();
   })
@@ -21,8 +15,7 @@ const AllPolicy = () => {
       {/* <h1 className='my-10 text-xl'>All Policies</h1> */}
       
       <div className='flex flex-wrap gap-10 ml-24 md:ml-0'>
-       
-          {policydata.map((item, index) => (
+            {policydata.map((item, index) => (
             <NavLink to={{ pathname:`/policydetail/${item.policyId}`}}  state={{item,index}} >
             <div 
             key={`${index}`}
