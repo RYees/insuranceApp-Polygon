@@ -11,9 +11,9 @@ dotenv.config();
 async function main() {
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY ?? "");
 
-  const provider = new ethers.providers.AlchemyProvider(
-    "maticmum",
-    process.env.ALCHEMY_API_KEY
+  const provider = new ethers.providers.InfuraProvider(
+    "testnet_aurora",
+    process.env.INFURA_API_KEY
   );
 
   const signer = wallet.connect(provider);
