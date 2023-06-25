@@ -15,7 +15,7 @@ const createEthereumContract = () => {
   const signer = provider.getSigner();
   const InsuranceContract = new ethers.Contract(contractAddress, contractABI, signer);
   
-  console.log('Insurancecontract', InsuranceContract);
+  //console.log('Insurancecontract', InsuranceContract);
   return InsuranceContract;
 };
 
@@ -25,6 +25,7 @@ export const InsuranceProvider = ({ children }) => {
   const [policydata, updateData] = useState([]);
   const [monthlyamount, setMonthlyAmount] = useState([]);
   const [textmessage, setupMessage] = useState('');
+  const [isAdmin, setCheckAdmin] = useState('');
   const [isLoading, setIsLoading] = useState(false); 
 
   const checkIfWalletIsConnect = async () => {
@@ -57,6 +58,20 @@ export const InsuranceProvider = ({ children }) => {
       console.log(error);
 
       throw new Error("No ethereum object");
+    } 
+  };
+
+  const CheckOwner = async () => {
+    try {
+      if(ethereum){
+        const policyContract = createEthereumContract();
+        const transactionHash = await policyContract.checkOwnership();
+        setCheckAdmin(transactionHash);
+        //console.log("success", transactionHash);
+      }
+    } catch (error) {
+      console.log(error);
+     //throw new Error("No ethereum object");
     }
   };
 
@@ -247,34 +262,6 @@ export const InsuranceProvider = ({ children }) => {
     }
   };
 
-  const checkOwnership = async () => {
-    //Upload data to IPFS
-    try {
-      if(ethereum){console.log("fak");
-        const policyContract = createEthereumContract();
-        const transactionHash = await policyContract.checkOwnership();
-        setIsLoading(true);
-        console.log("fak", transactionHash);
-        
-        console.log(`Loading - ${transactionHash.hash}`);
-        console.log(`Success - ${transactionHash.hash}`);
-
-        setIsLoading(false);
-        setMonthlyAmount(transactionHash);
-        
-        window.location.reload();
-        console.log('success');
-        
-      } else {
-        console.log("No ethereum object now");
-      }
-    } catch (error) {
-      console.log(error);
-    //throw new Error("No ethereum object");
-    }
-  };
-
-
   async function listAllUserPayments() {
     try {
       if(ethereum){
@@ -337,7 +324,8 @@ export const InsuranceProvider = ({ children }) => {
         monthlyAmount,
         monthlyamount,
         PayMonthly,
-        checkOwnership
+        CheckOwner,
+        isAdmin
         }}
       >
       {children}
