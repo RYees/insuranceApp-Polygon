@@ -9,6 +9,7 @@ Vehicle insurance application system on the aurora network.
 
 ## Overview
 This project is about creating a vehicle insurance system on the Aurora network, using the use cases of blockchain we aim to create the system on the blockchain tecnology and do every necessary trasaction with low fee on the aurora network. The project includes three sections:
+
 Vehicle and Policy Verification:
 The decentralized insurance system can be utilized for vehicle and policy verification by external entities such as regulatory authorities or financial institutions. The API allows these entities to query the system using specific parameters, such as owner addresses or policy IDs, to verify the existence and status of vehicles and insurance policies. This use-case enhances trust and transparency, enabling regulatory compliance and facilitating secure transactions, such as vehicle financing or cross-border travel with insurance coverage.
 
