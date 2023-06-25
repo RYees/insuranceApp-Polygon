@@ -196,13 +196,11 @@ export const ClaimProvider = ({ children }) => {
         //const { id, val } = statusformData;
         const claimContract = createEthereumContract();        
         const transactionHash = await claimContract.claimPaid(index, _claimerAddress, { value: ethers.utils.parseUnits(amount) }) ;
-        setIsLoading(true);
+        window.location.reload();
         console.log(`Loading - ${transactionHash.hash}`);
         await transactionHash.wait();
         console.log(`Success - ${transactionHash.hash}`);
-        setIsLoading(false);
-
-        //  window.location.reload();
+        // window.location.reload();
         updateMessage("Money is transferred!");
         console.log('success')
       } else {

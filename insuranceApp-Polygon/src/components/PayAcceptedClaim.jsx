@@ -30,7 +30,7 @@ const PayAcceptedClaim = () => {
                             <div className="mb-4">
                             <label className=''>Amount </label><br></br>
                                 <input className='text-gray-700 border py-2 px-2 rounded w-72 mr-5' 
-                                placeholder="amount to transfer" type="number" step={0.1} name="amount" 
+                                placeholder="amount to transfer" type="number" step={0.00001} name="amount" 
                                 onChange={e => setAmount({...payamount, amount: e.target.value})} 
                                 value={payamount.amount}
                                 />

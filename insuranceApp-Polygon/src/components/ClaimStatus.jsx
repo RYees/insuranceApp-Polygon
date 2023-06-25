@@ -48,7 +48,7 @@ const ClaimStatus = () => {
         <div className=' text-center'>
         <Link to={{ pathname:`/payamount/${item.claimId}`}}  state={{item,index}}>
             <button className='py-3 transform underline text-green-700 rounded text-lg cursor-pointer'>
-                transfer money to claim accepted user
+                transfer money to user with accepted claim
             </button>
         </Link>
         </div> 

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { acc1, acc3 } from '../assets'
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { InsuranceContext } from '../context/InsurancePolicy';
 
 const ClaimDetails = () => {
+    const {isAdmin } = useContext(InsuranceContext);
     const { state } = useLocation();
     const { index } = state || {};
     const { item } = state || {};
@@ -51,13 +53,14 @@ const ClaimDetails = () => {
                 </p>
             </div>
 
+            {isAdmin ? 
             <div className='my-10 mx-20'>
                 <Link to={{ pathname:`/claimstatus/${item.claimId}`}}  state={{item,index}}>
                     <button className='transfrom uppercase bg-green-700 p-2 rounded text-white'>
                         claim status
                     </button>
                 </Link>
-            </div>
+            </div> : null }
         </div>
 
     </>

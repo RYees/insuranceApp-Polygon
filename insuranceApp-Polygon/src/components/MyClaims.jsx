@@ -37,10 +37,10 @@ const MyClaims = () => {
               <div><h1>{status(item.status)}</h1></div>
               <img src={item.image} alt="" className='mx-auto py-2 h-48 rounded-xl'/>
                 <div>
-                  <h1 className='card transform uppercase text-center text-xl'>{item.cause}</h1>
+                  <h1 className='card transform normal-case text-center text-lg text-gray-500'>{item.cause}</h1>
                 </div>
                 <div>
-                  <h1 className='card transform uppercase text-center text-xl'>{item.location}</h1>
+                  <h1 className='card transform capitalize text-center text-xl'><small className='text-gray-500'>At</small> {item.location}</h1>
                 </div>
             </div>
           </Link>
