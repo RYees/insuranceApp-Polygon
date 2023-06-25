@@ -1,12 +1,24 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {
   tire
 } from "../assets/index";
 import '../css/Style.css';
 import AllPolicy from '../components/AllPolicy'
 import { InsuranceContext } from '../context/InsurancePolicy';
+import { ClaimContext } from '../context/Claim';
+import { VehicleContext } from '../context/Vehicle';
+
 const Dashboard = () => {
-  //const { monthlyAmount, monthlyamount } = useContext(InsuranceContext);
+  const { getAllPolicies } = useContext(InsuranceContext);
+  const { getAllVehicles } = useContext(VehicleContext);
+  const { listAllClaims } = useContext(ClaimContext);
+
+  useEffect(()=>{
+    getAllPolicies();
+    getAllVehicles();
+    listAllClaims();
+  })
+
   return (
     <div className='my-12'>
       <div>
