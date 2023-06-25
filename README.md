@@ -42,7 +42,9 @@ Steps to do the project:
 
 ## Installation
     git clone https://github.com/RYees/insuranceApp-Polygon.git
+    
 cd hardhat
+
     npm install
 create .env file and put aurora testnet account private key, infura api url for aurora
     npx hardhat compile
