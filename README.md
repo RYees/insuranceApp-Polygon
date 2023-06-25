@@ -6,7 +6,7 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 * [Overview](#overview)
 * [Usage](#usage implementing the project on blockchain)
 * [Workflow](#workflow)
-
+* [Installion](#installation)
 
 ## Overview
 This project is about creating a vehicle insurance system on the Aurora network, using the use cases of blockchain we aim to create the system on the blockchain tecnology and do every necessary trasaction with low fee on the aurora network. The project includes three sections:
@@ -39,3 +39,7 @@ Steps to do the project:
    * Deployed on the Aurora Network
 * Building frontend web dapp
    * Designing the user interface with Reactjs and tailwind css
+
+## Installation
+    git clone https://github.com/RYees/insuranceApp-Polygon.git
+    
