@@ -4,7 +4,7 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 
 # Table of content
 * [Overview](#overview)
-* [Usage implementing the project on Blockchain](#usage implementing the project on blockchain)
+* [Usage](#usage)
 * [Workflow](#workflow)
 * [Installion](#installation)
 
@@ -19,7 +19,8 @@ Insurance companies can leverage the decentralized system to manage policies eff
 Claims Processing:
 The decentralized insurance system offers a use-case where policyholders can submit claims directly through the API, providing all the necessary details and supporting documentation. The smart contracts automatically validate the claim and initiate the review process. Claims adjusters can access the system to evaluate claims efficiently, reducing manual paperwork and streamlining the overall process. This use-case improves transparency and accelerates claims processing, ensuring policyholders receive timely and fair settlements.
 
-## Usage implementing the project on Blockchain
+## Usage
+usage of implementing the project on Blockchain
 1-Increased Security and Privacy: By leveraging crypto wallets for user identification and authorization, the decentralized insurance system ensures enhanced security and privacy. Traditional username/password authentication is replaced with the cryptographic security of crypto wallets, reducing the risk of unauthorized access and identity theft.
 
 2-Transparent and Immutable Records: The utilization of blockchain technology eliminates the need for a centralized database. Instead, the system leverages the blockchain as a transparent and immutable ledger, recording vehicle registrations, insurance policies, and claim submissions. This provides a tamper-proof and auditable record of all interactions within the system.
