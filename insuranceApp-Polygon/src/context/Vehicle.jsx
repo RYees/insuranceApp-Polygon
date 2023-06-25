@@ -62,14 +62,14 @@ export const VehicleProvider = ({ children }) => {
         const vehicleContract = createEthereumContract();
         
         const transactionHash = await vehicleContract.createVehicle(plate, policyId, metadataURL);
-
+        window.location.reload();
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
         await transactionHash.wait();
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
 
-         window.location.reload();
+        //window.location.reload();
         console.log('success')
       } else {
         console.log("No ethereum object now");

@@ -3,7 +3,7 @@ import { car2 } from '../assets'
 import { NavLink, useLocation } from 'react-router-dom';
 import { InsuranceContext } from '../context/InsurancePolicy';
 const PolicyDetails = () => {
-    const { monthlyAmount, monthlyamount,checkOwnership } = useContext(InsuranceContext);
+    const { monthlyAmount, monthlyamount,checkOwnership, isAdmin } = useContext(InsuranceContext);
     const { state } = useLocation();
     const { index } = state || {};
     const { item } = state || {};
@@ -16,14 +16,14 @@ const PolicyDetails = () => {
         <>
                     
         <div className='my-32 border rounded-xl mx-20 py-5 shadow'>
-           <div>
+           {!isAdmin ? <div>
            <NavLink to={{ pathname:`/vehicleregisteration/${item.policyId}`}} state={{item, index}}>
                 <button
                     className='text-green-500 float-right w-40 rounded hover:brightness-110 transform underline'>
                     Register Your Vehicle
                 </button>
             </NavLink>
-            </div>
+            </div> : null }
 
             <div>
                 <h1 className='transform uppercase text-2xl text-center my-5' 

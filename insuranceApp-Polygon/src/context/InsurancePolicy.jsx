@@ -102,8 +102,8 @@ export const InsuranceProvider = ({ children }) => {
       if(ethereum){
         const metadataURL = await uploadMetadataToIPFS(fileURL);
         const policyContract = createEthereumContract();
-         const transactionHash = await policyContract.createPolicy(ethers.utils.parseUnits(premiumAmount), metadataURL);
-
+        const transactionHash = await policyContract.createPolicy(ethers.utils.parseUnits(premiumAmount), metadataURL);
+        window.location.reload();
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
         await transactionHash.wait();
