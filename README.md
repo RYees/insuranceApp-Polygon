@@ -47,12 +47,17 @@ cd hardhat
 
     npm install
 create .env file and put aurora testnet account private key, infura api url for aurora
+
     npx hardhat compile
+    
     npx hardhat run scripts/deploy.ts --network aurora_testnet
     
 cd insuranceApp-ui
+
     npm install
 replace the json files on the artifact under hardhat folder and the deployed contract address on the utils folder under the insuranceApp-ui > src folder
+
     npm start
 
 You have to use two accounts to see the admin dashboard and user dashboard separately, the admin account has to be used to deploy the contracts 
+
