@@ -4,7 +4,7 @@ An intellectual property (IP) right for a technical invention. It allows to prev
 
 # Table of content
 * [Overview](#overview)
-* [Usage](#usage implementing the project on blockchain)
+* [Usage implementing the project on Blockchain](#usage implementing the project on blockchain)
 * [Workflow](#workflow)
 * [Installion](#installation)
 
